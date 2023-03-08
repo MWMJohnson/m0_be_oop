@@ -63,16 +63,18 @@ class Dragon
   
     def eat
       @num_eats += 1
-      @ishungry = false if @num_eats >= 4
+      @is_hungry = false if @num_eats >= 4
     end
   end
   
-  p dragon1 = Dragon.new('Bill', 'Joe', 'Green')
-  dragon1.eat
-  dragon1.eat
-  dragon1.eat
-  dragon1.eat
-  p dragon1
+pp dragon1 = Dragon.new('Bill', 'Joe', 'Green')
+#dragon1.eat
+#dragon1.eat
+#dragon1.eat
+#dragon1.eat
+#faster way to code using on line instead of the 4 ABOVE, use this below:
+4.times { dragon1.eat }
+pp dragon1
 
 
 #  Write a Hobbit class
@@ -84,6 +86,7 @@ class Dragon
 #  it should have an is_old attribute that defaults to false. once a Hobbit is 101, it is old.
 #  it should have a has_ring attribute. If the Hobbit's name is "Frodo", true, if not, false.
 
+#Incorrect code originally submitted in Mod 0
 class Hobbit
     def initialize(name, disposition, age = 0)
       @name = name
@@ -102,7 +105,33 @@ class Hobbit
     end
   end
   
-  p hobbit1 = Hobbit.new('Bill', 'angry', 102)
+  p hobbit1 = Hobbit.new('Bill', 'angry')
+
+  #Reason it is incorrect is because when you call on the celebrate_birthday method 33 times in the code below (line 111) starting from zero is becuase it is only doing that in the initialized method, a better way to do this is to include the logic above in the defined celebrate_birthday method. Reference video from Kaitlyn in Slack message.
+  33.times {hobbit1.celebrate_birthday}
   
-  hobbit1.celebrate_birthday
+  p hobbit1
+
+
+  #Revised Code (this works instead of what you submitted below because you let the @age start with a constant variable for all hobbits at zero by default.)
+  class Hobbit
+    def initialize(name, disposition)
+      @name = name
+      @disposition = disposition
+      @age = 0
+      @is_old = false
+      @is_adult = false
+      @has_ring = @name == 'Frodo'
+    end
+  
+    def celebrate_birthday
+      @age += 1
+      @is_old = true if @age >= 101
+      @is_adult = true if @age >= 33
+    end
+  end
+  
+  p hobbit1 = Hobbit.new('Bill', 'angry')
+  
+  33.times { hobbit1.celebrate_birthday }
   p hobbit1
